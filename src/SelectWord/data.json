@@ -1,0 +1,16 @@
+{
+    "name": "Find the -ing form",
+    "img": "./SelectWord/image_1.jpg",
+    "task": "Select the verbs that are in the -ing form.",
+    "line_1": {
+        "words": ["I", "heaed", "you're", "buying", "a", "house!"],
+        "right": ["buying"]
+    },
+    "line_2": {
+        "words": ["Yeah", "we", "found", "one", "we", "like", "so", "we're", "applying", "for", "a", "home", "loan", "It's", "taking", "a", "long", "time.", "I'm", "still", "waiting", "to", "hear", "from", "the", "bank."],
+        "right": ["applying", "waiting"]
+    },
+    "line_3": {
+        "words": ["I", "hope", "it", "all", "goes", "well."]
+    }
+}
