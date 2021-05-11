@@ -1,98 +1,96 @@
 import React, {Component} from 'react';
 import  './SelectWord.css';
 
+const styleWord = {
+    'us': 'unselect',
+    's': 'select',
+    'p': 'plus',
+    'm': 'minus',
+    'sol': 'solution' 
+  }
+  
 export class Word extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
+  
     render() {
-
+  
         let raiting = null;
         if  (this.props.raiting) {
-            raiting = this.props.raiting > 0 ? 
-                <span className="raiting plus">{this.props.raiting}</span> :
-                <span className="rainting minus">{this.props.raiting}</span>;
+          const isPlus = this.props.raiting > 0;
+            raiting =  
+                <span className={ isPlus ? 
+                  "raiting plus" : 
+                  "raiting minus" }> { (isPlus? '+' : '') + this.props.raiting}
+                </span>
         }
-
-        const h1 = <h1>132</h1>
-
+  
         return (
-            <li className={ "word " + this.props.className } onClick={this.props.onClick}>{this.props.children}
-            { raiting }
+            <li className={ "word " + styleWord[this.props.style] } onClick={this.props.onClick}>
+              {this.props.value}
+              { raiting }
             </li>
         );
     }
 }
-
-const lineOption = {
+  
+  const modeLineWords = {
+    'd': 'default',
     'r': 'result',
-    's': 'solution' 
-}
-
-const wordStyle =  {//optionView
-    '+1': 'plus',
-    '-1': 'minus',
     's': 'solution'
-}
-
-class LineWords extends Component {
-
-    rightIndexs;
-
+  }
+  
+ export class LineWords extends React.Component {
+  
+    rightWordIndexs;
+  
     constructor(props) {
-        super(props);
-
-        const selectIndexs = new Array(props.words.length).fill(false);
-        this.state = {selectIndexs: selectIndexs}
-
-        this.rightIndexs = getRightIndexs(props.words, props.rights);
-        this.handleClick = this.handleClick.bind(this);
+      super(props);
+  
+      this.handleClick = this.handleClick.bind(this);
     }
-
+  
     handleClick(index) {
-        const indexs = this.state.selectIndexs.slice();
-        indexs[index] = !indexs[index];
-        this.setState({selectIndexs: indexs});
+        this.props.onClick(index);
     }
-
-    componentDidUpdate() {
-        if (this.props.option === 'r') {
-            console.log("Line: " + this.rightIndexs.length);
-            this.props.onResult(Math.max(result(this.state.selectIndexs, this.rightIndexs), 0), this.rightIndexs.length);
-        }
-    }
-
+  
     render() {
-
-        // if (this.props.option === 'u') selectIndexs = this.selectIndexs.map(() => false);
-
-        const funcWords = (word, index) => {
-            let style;
-            let raiting = null;
-            if(this.props.option === null) {
-                style = this.state.selectIndexs[index] ? 'select': null;
-            } else if (this.props.option === 'r') {
-                console.log("r" + 23);
-                if( this.state.selectIndexs.indexOf(index) !== -1){
-                    const isRight = this.rightIndexs.indexOf(index) !== -1;
-                    style = isRight ? 'minus' :  'plus'; 
-                    raiting = isRight ? 1 : -1;
-                }
-            } else if(this.props.option === 's') {
-                if(this.rightIndexs.indexOf(index) !== -1) style = 'solution';
+  
+      const Words = this.props.simpleWords.map((word, index) => {
+        
+        let style = 'us';
+        let raiting = null;
+        const isRight = this.props.rightWordIndexs.indexOf(index) !== -1;
+        switch(this.props.modeLineWords) {
+          case 'r':
+            if (this.props.selectIndexs[index]) {
+              style = isRight ? 'p': 'm';
+              raiting = isRight ? 1 : -1;
+            } else {
+              style = 'us';
             }
-            return <Word key={index} onClick={() => this.handleClick(index)} className={style} raiting={raiting}>{word}</Word>
+            break;
+          case 's':
+            style = isRight ? 'sol' : 'us';
+            break;
+          case 'd':
+            style = this.props.selectIndexs[index] ? 's' : 'us';
+            break;
         }
-
-        const words = this.props.words.map(funcWords);
-
-        return (
-            <ul>{words}</ul>
-        );
+  
+        return <Word key={index}
+          value={word} 
+          raiting={null} 
+          style={style} 
+          onClick={this.props.modeLineWords === 'd' ? () => this.handleClick(index) : null}
+        />
+      });
+  
+      return (
+        <ul className="lineWord">
+          { Words }
+        </ul>
+      );
     }
-}
+  }
 
 class SelectWords extends Component {
 

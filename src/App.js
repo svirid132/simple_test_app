@@ -1,40 +1,63 @@
 import './App.css';
-import SelectWords from './SelectWord/SelectWord.js'
-import dataForSelectWord from "./SelectWord/data.json";
-import TaskBorder from "./TaskBorder/TaskBorder.js"
+import {LineWords } from './SelectWord/SelectWord.js'
+import data from "./SelectWord/data.json";
 import React, {Component} from 'react';
 
-const styleWord = {
-  'us': 'unselect',
-  's': 'select',
-  'p': 'plus',
-  'm': 'minus',
-  'sol': 'solution' 
+function createRightWordIndexs(words, rightWords) {
+  const rightWordIndexs = new Array;
+  for (let i = 0; i < words.length; ++i) {
+    const findingIndex = rightWords.indexOf(words[i]);
+    if (findingIndex !== -1) rightWordIndexs.push(findingIndex);
+  }
+
+  return rightWordIndexs;
 }
 
-class Word extends Component {
+class SelectWords extends Component {
+
+  rightItemsIndexs;
 
   constructor(props) {
       super(props);
+
+      this.rightItemsIndexs = new Array(this.props.data.lines.length);
+
+      const selectItemsIndexs = new Array(this.props.data.lines.length);
+      this.props.data.lines.forEach((line, index) => {
+        this.rightItemsIndexs[index] = createRightWordIndexs(line.words, line.right);
+        const selectIndexs = new Array(line.words.length).fill(false);
+        selectItemsIndexs[index] = selectIndexs;
+      });
+      this.state = {selectItemsIndexs: selectItemsIndexs};
+
+      this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(lineIndex, wordIndex) {
+    const selectItemsIndexs = this.state.selectItemsIndexs.slice();
+    selectItemsIndexs[lineIndex][wordIndex] = !selectItemsIndexs[lineIndex][wordIndex];
+    this.setState({selectItemsIndexs: selectItemsIndexs});
   }
 
   render() {
 
-      let raiting = null;
-      if  (this.props.raiting) {
-          raiting =  
-              <span className={ this.props.raiting > 0 ? 
-                "raiting plus" : 
-                "rainting minus" }> {this.props.raiting}
-              </span>
-      }
+console.log('this.state.selectItemsIndexs: ' + this.state.selectItemsIndexs[0]);
 
-      return (
-          <li className={ "word " + styleWord[this.props.style] }>
-            {this.props.value}
-            { raiting }
-          </li>
-      );
+    const LinesWords = this.props.data.lines.map((line,index) => {
+      return <LineWords key={index}
+        simpleWords={line.words} 
+        rightWordIndexs={this.rightItemsIndexs} 
+        modeLineWords={'d'} 
+        selectIndexs = {this.state.selectItemsIndexs[index]}
+        onClick={(wordIndex) => this.handleClick(index, wordIndex)}
+     />
+    });
+
+    return (
+      <div>
+        {LinesWords}
+      </div>
+    );
   }
 }
 
@@ -44,7 +67,9 @@ function App() {
       //   <SelectWords data = {dataForSelectWord}/>
       // </TaskBorder>
 
-    <Word value="text" raiting={1} style='sol'/>
+    
+
+      <SelectWords data={data} />
 
     // <div className = 'root'>
     //   <header>
