@@ -9,7 +9,7 @@ const styleWord = {
     'sol': 'solution' 
   }
   
-export class Word extends Component {
+class Word extends Component {
   
     render() {
   
@@ -38,7 +38,7 @@ export class Word extends Component {
     's': 'solution'
   }
   
- export class LineWords extends React.Component {
+ export default class LineWords extends React.Component {
   
     rightWordIndexs;
   
@@ -91,82 +91,3 @@ export class Word extends Component {
       );
     }
   }
-
-class SelectWords extends Component {
-
-    middleResult = 0;
-    middleCount = 0;
-
-    constructor(props) {
-        super(props);
-
-        this.handleResult = this.handleResult.bind(this);
-
-    }
-
-    handleResult(result, count) {
-        this.middleResult += result;
-        this.middleCount += count;
-    }
-
-    componentDidUpdate() {
-        if (this.props.option === 'r') {
-            console.log("SelectWords", this.middleCount);
-            this.props.onResult(this.middleResult, this.middleCount);
-            this.middleResult = 0;
-            this.middleCount = 0;
-        }
-    }
-
-    render() {
-
-        const data = this.props.data;
-        const arrLineWords = new Array();
-        let index = 0;
-        for (let property of Object.keys(data)) {
-            if (property.indexOf('line') !== -1) { 
-                const words = data[property].words;
-                let rights = null;
-                if ("right" in data[property]) rights = data[property].right;
-                arrLineWords.push( <LineWords key={index} words = {words} rights = {rights} option={this.props.option} onResult={this.handleResult}/> );
-                ++index;
-            }
-        }
-
-        return (
-            <div className = "task">
-                <h2>{data.name}</h2>
-                <img src="images/image1.jpg" alt="standart image"></img>
-                <p>{data.task}</p>
-                { arrLineWords }
-            </div>
-        );
-    }
-}
-
-function result(indexSelects, indexRights) {   
-
-    let func = (accumulator, value) => {
-        let indexFind = indexRights.indexOf(value);
-        return indexFind === -1 ? --accumulator : ++accumulator;
-    }
-
-    return indexSelects.reduce(func, 0);
-}
-
-function getRightIndexs(words, rights) {
-    const rightIndexs = new Array();
-    if (rights === null){ 
-        return [];
-    }
-    rights.forEach(right => {
-        const rightIndex = words.indexOf(right);
-        if (rightIndex !== -1){ 
-            rightIndexs.push(rightIndex);
-        }
-    });
-
-    return rightIndexs;
-}
-
-export default SelectWords;

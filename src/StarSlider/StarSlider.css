@@ -5,8 +5,10 @@
 }
 
 .border {
+    /* margin-left: 40px;  */
+    margin-top: 20px;
     width: 320px;
-    height: 35px;
+    height: 40px;
     border-radius: 10px;
     border: 2px solid #DDDDDD;
     position: relative;

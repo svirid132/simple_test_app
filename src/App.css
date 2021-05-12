@@ -1,3 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+.task {
+  margin: 0 auto;
+  width: 716px;
+  align-items: center;
+  font-size: 16px;
+}
+
+ul.btns {
+  margin: 0;
+  padding: 0;
+  display: block;
+  list-style-type: none;
+}
+
+ul.btns li {
+  display: inline-block;
+  margin-left: 12px;
+}
+
+.task button {
+  margin-top: 20px;
+  width: 80px;
+  height: 40px;
+  background-color: #32A9FF;
+  border-radius: 7px;
+  color: white;
+  font-size: 16px;
+}
+
 h1 {
   margin: 0;
 }

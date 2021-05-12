@@ -1,5 +1,5 @@
 import './App.css';
-import {LineWords } from './SelectWord/SelectWord.js'
+import LineWords from './SelectWord/SelectWord.js'
 import StarSlider from './StarSlider/StarSlider.js'
 import data from "./SelectWord/data.json";
 import React, {Component} from 'react';
@@ -101,13 +101,12 @@ class SelectWords extends Component {
   }
 
   getBtns(mode) {
-    console.log('this ' + mode);
     switch(mode) {
       case 'd':
         return <button name='check' onClick={this.handleClickBtn}>check</button>
       case 'c':
         return (
-        <ul>
+        <ul className='btns'>
           <li key={0}><button name='reset' onClick={this.handleClickBtn}>reset</button></li>
           <li key={1}><button name='solution' onClick={this.handleClickBtn}>solution</button></li>
         </ul>);
@@ -148,10 +147,13 @@ class SelectWords extends Component {
     const btns = this.getBtns(this.state.mode);
 
     return (
-      <div>
+      <div className={"task"}>
+        <h2>{this.props.data.name}</h2>
+        <img src={this.props.data.img} alt='optional picture'></img>
+        <p>{this.props.data.task}</p>
         {linesWords}
-        {btns}
         {this.state.mode !== 'd' ? <StarSlider fillStar = {this.state.stars} countStar = {this.state.numberOfStars}/> : null}
+        {btns}
       </div>
     );
   }
@@ -159,20 +161,14 @@ class SelectWords extends Component {
 
 function App() {
   return (
-      // <TaskBorder >
-      //   <SelectWords data = {dataForSelectWord}/>
-      // </TaskBorder>
-
-      <SelectWords data={data} />
-
-    // <div className = 'root'>
-    //   <header>
-    //     <h1>
-    //       Test<span>English</span>
-    //     </h1>
-    //   </header>
-    //   <SelectWords data = {dataForSelectWord}/>
-    // </div>
+    <div>
+      <header>
+        <h1>
+          Test<span>English</span>
+        </h1>
+      </header>
+      <SelectWords data = {data}/>
+    </div>
   );
 }
 
