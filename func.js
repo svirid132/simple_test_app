@@ -65,4 +65,10 @@ console.log(res);
 let allIndex = getRightIndexs(indexSelects, indexRight);
 console.log(allIndex);
 
+const arr = [[1, 'val1'], [2, 'val2']];
+console.log(Object.fromEntries(arr));
+for (const [key, value] in Object.fromEntries(arr)) {
+    console.log(key, value);
+}
+
 // arr.map((value))//indexOf if 1 then +1 if -1 then -1

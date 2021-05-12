@@ -55,7 +55,7 @@ class StarSlider extends React.Component {
                 <div className="border">
                     <Scale className="scale" widthScale={this.widthScale} isViewProgres={this.state.isViewProgres} progresScale={this.progresScale}/>
                     <Star className="star" isFillStar={this.state.isFillStar}/>
-                    <span className="counter">{this.props.fillStar}<span class="seperate">/</span>{this.props.countStar}</span>
+                    <span className="counter">{this.props.fillStar}<span className="seperate">/</span>{this.props.countStar}</span>
                 </div>
             </div>
         )
