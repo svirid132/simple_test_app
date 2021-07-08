@@ -1,63 +1,40 @@
 import React from "react";
 
-import {ReactComponent as ReactLogo} from './star.svg';
+import { CSSTransition } from 'react-transition-group';
 
-import styled, { css } from 'styled-components'
+import {Scale, Star} from './SliderElems'
 
-import './StarSlider.css'
+import './StarSlider.scss'
 
-
-const Scale = styled.span`
-    width: ${(props) => props.widthScale}px;
-
-    &:before {
-        width: ${props => (props.isViewProgres ? props.progresScale : 0)}px;
-        transition: width 1s ease;
-}`;
-
-const Star = styled((props) => < ReactLogo className={props.className} />)`
-    & path {
-        fill: ${(props) => props.isFillStar ? "gold" : "#DDDDDD"};
-        ${props => props.isFillStar && 
-            css`
-                transition: fill 0s ease 0.7s;
-        `}
-    }
-` 
 
 class StarSlider extends React.Component {
-
-    widthScale = 220;
-    progresScale;
-    isFillStar;
 
     constructor(props) {
         super(props); 
 
-        this.progresScale = this.widthScale / this.props.countStar * this.props.fillStar;
-        this.isFillStar = (this.props.countStar === this.props.fillStar);
-        this.state = {
-            isViewProgres: false,
-            isFillStar: false
-        }
+        this.widthScale = 220;
     }
 
     componentDidMount() {
-        setTimeout(() => this.setState({
-            isViewProgres: true,
-            isFillStar: this.isFillStar
-        }), 0);
     }
 
     render() {
+
+        const progresScale = this.widthScale / this.props.countStar * this.props.fillStar;
+        const isGoldStar = (this.props.countStar === this.props.fillStar);
+
         return (
-            <div className="starSlider">
-                <div className="border">
-                    <Scale className="scale" widthScale={this.widthScale} isViewProgres={this.state.isViewProgres} progresScale={this.progresScale}/>
-                    <Star className="star" isFillStar={this.state.isFillStar}/>
+                <div className="starSlider">
+                    <div className="border">
+                    <CSSTransition in={true} appear timeout={200} classNames='sliderBar'>
+                        <Scale width={progresScale}/>
+                    </CSSTransition>
+                    <CSSTransition in={true} appear timeout={200} classNames='star'>
+                        {isGoldStar ? <Star gold/> : <Star />}
+                    </CSSTransition>
                     <span className="counter">{this.props.fillStar}<span className="seperate">/</span>{this.props.countStar}</span>
+                    </div>
                 </div>
-            </div>
         )
     }
 }

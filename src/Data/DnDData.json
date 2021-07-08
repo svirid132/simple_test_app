@@ -1,0 +1,16 @@
+{
+    "name": "Complete the sentences",
+    "img": null,
+    "task": "Put the words in the right order",
+    "lines": [
+        {
+            "begin": "A:",
+            "words": ["What ", "are ", "you", "doing", "tonight"],
+            "end": "?"
+        },
+        {
+            "begin": "B: We're",
+            "words": ["going ", "to a restaurant."]
+        }
+    ]
+}

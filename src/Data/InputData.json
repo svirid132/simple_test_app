@@ -1,0 +1,32 @@
+{
+    "name": " Complete the conversation",
+    "img": null,
+    "task": "Complete the telephone conversation. Use am, is or are.",
+    "lines": [
+        {
+            "begin": "A: How ",
+            "words": ["are"],
+            "end": " you doing?"
+        },
+        {
+            "begin": "B: We ",
+            "words": ["are", "is"],
+            "contine": "getting ready for a party tonight. It's Dad's birthday. He ",
+            "end": "turning 60 tomorrow!"
+        },
+        {
+            "begin": "A: Sounds good. ",
+            "words": ["are"],
+            "end": "many people coming?"
+        },
+        {
+            "begin": "B: About 30 I think. Mostly family. We're all pretty busy. I ",
+            "words": ["am", "is"],
+            "contine": "making a cake now. Mom ",
+            "end": "you doing?"
+        },
+        {
+            "default": "A: Sounds great. I'll talk to you later then. "
+        }
+    ]
+}
