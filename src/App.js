@@ -55,8 +55,8 @@ function App() {
           Test<span>English</span>
         </h1>
       </header>
-      {/* <Task type={TaskType.select} data={SelectData}/>
-      <Task type={TaskType.dnd} data={DnDData}/> */}
+      <Task type={TaskType.select} data={SelectData}/>
+      <Task type={TaskType.dnd} data={DnDData}/>
       <Task type={TaskType.input} data={InputData}/>
     </div>
   );
