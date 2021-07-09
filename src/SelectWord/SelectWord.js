@@ -58,7 +58,6 @@ class Word extends Component {
       this.selectStar += raiting;
       let stars = this.selectStar;
       if (this.selectStar < 0) stars = 0;
-      console.log(stars, this.allStar);
       if(this.props.mode === mode.default) this.props.onStar([stars, this.allStar]);
     }
   

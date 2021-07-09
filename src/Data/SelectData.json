@@ -1,6 +1,6 @@
 {
     "name": "Find the -ing form",
-    "img": "/images/image1.jpg",
+    "img": "./images/image1.jpg",
     "task": "Select the verbs that are in the -ing form.",
     "lines": [
         {
